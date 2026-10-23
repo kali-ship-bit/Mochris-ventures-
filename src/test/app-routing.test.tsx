@@ -37,6 +37,22 @@ describe("App routing", () => {
     expect(screen.getAllByRole("link", { name: /enquir/i }).length).toBeGreaterThan(0);
   });
 
+  it("renders a six-picture gallery on a business page", async () => {
+    await renderAt("/agribusiness");
+
+    expect(
+      await screen.findByRole("heading", { name: "Agribusiness in pictures" }),
+    ).toBeInTheDocument();
+    // The first gallery slot holds the business photo; the other five are
+    // labelled placeholders waiting for pictures.
+    expect(screen.getByAltText("On the farm")).toBeInTheDocument();
+    expect(screen.getAllByText(/photo coming soon/i)).toHaveLength(5);
+    // The call to action uses the right article for vowel-led business names.
+    expect(
+      screen.getByRole("heading", { name: "Start an agribusiness conversation." }),
+    ).toBeInTheDocument();
+  });
+
   it("renders the contact form", async () => {
     await renderAt("/contact");
 

@@ -1,18 +1,19 @@
-import { QueryClient } from "@tanstack/react-query";
 import { createMemoryHistory, createRouter, RouterProvider } from "@tanstack/react-router";
-import { cleanup, render, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { routeTree } from "@/routeTree.gen";
 
-function renderAt(path: string) {
-  const queryClient = new QueryClient();
+async function renderAt(path: string) {
   const router = createRouter({
     routeTree,
-    context: { queryClient },
     history: createMemoryHistory({ initialEntries: [path] }),
   });
-  return render(<RouterProvider router={router} />);
+  // The router must finish its initial load before rendering, otherwise
+  // RouterProvider paints nothing and every assertion races the router.
+  await router.load();
+  render(<RouterProvider router={router} />);
+  return router;
 }
 
 afterEach(() => {
@@ -20,20 +21,42 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-// Assert only that the router mounts and paints, never page content:
-// routes are rewritten as the app is built and this must keep passing.
 describe("App routing", () => {
   it("renders the index route", async () => {
-    const { container } = renderAt("/");
+    await renderAt("/");
 
-    await waitFor(() => expect(container.firstChild).not.toBeNull());
+    expect(
+      await screen.findByRole("heading", { name: "Five businesses. One company." }),
+    ).toBeInTheDocument();
+  });
+
+  it("renders a business page with its enquiry link", async () => {
+    await renderAt("/agribusiness");
+
+    expect(await screen.findByRole("heading", { name: "Agribusiness" })).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: /enquir/i }).length).toBeGreaterThan(0);
+  });
+
+  it("renders the contact form", async () => {
+    await renderAt("/contact");
+
+    expect(await screen.findByRole("heading", { name: "Business enquiry" })).toBeInTheDocument();
+    expect(screen.getByLabelText(/full name/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/email address \(optional\)/i)).toBeInTheDocument();
+  });
+
+  it("preselects the business named in the contact URL", async () => {
+    await renderAt("/contact?service=Agribusiness");
+
+    const select = await screen.findByLabelText(/business area/i);
+    await waitFor(() => expect(select).toHaveValue("Agribusiness"));
   });
 
   it("renders the not-found route", async () => {
     vi.spyOn(console, "warn").mockImplementation(() => undefined);
 
-    const { container } = renderAt("/this-route-does-not-exist");
+    await renderAt("/this-route-does-not-exist");
 
-    await waitFor(() => expect(container.firstChild).not.toBeNull());
+    expect(await screen.findByText(/find that page/i)).toBeInTheDocument();
   });
 });

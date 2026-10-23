@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AgribusinessRouteImport } from './routes/agribusiness'
 import { Route as AutomobileDealershipRouteImport } from './routes/automobile-dealership'
 import { Route as CarHireRouteImport } from './routes/car-hire'
@@ -18,6 +19,16 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as MechanicalScrapsRouteImport } from './routes/mechanical-scraps'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SecurityConsultingRouteImport } from './routes/security-consulting'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminBusinessPagesRouteImport } from './routes/admin.business-pages'
+import { Route as AdminCompanyRouteImport } from './routes/admin.company'
+import { Route as AdminLoginRouteImport } from './routes/admin.login'
+import { Route as AdminStyleGuideRouteImport } from './routes/admin.style-guide'
+import { Route as AdminItemsIndexRouteImport } from './routes/admin.items.index'
+import { Route as AdminItemsIdRouteImport } from './routes/admin.items.$id'
+import { Route as AdminItemsNewRouteImport } from './routes/admin.items.new'
+import { Route as AdminRequestsIndexRouteImport } from './routes/admin.requests.index'
+import { Route as AdminRequestsIdRouteImport } from './routes/admin.requests.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -27,6 +38,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AgribusinessRoute = AgribusinessRouteImport.update({
@@ -64,10 +80,61 @@ const SecurityConsultingRoute = SecurityConsultingRouteImport.update({
   path: '/security-consulting',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminBusinessPagesRoute = AdminBusinessPagesRouteImport.update({
+  id: '/business-pages',
+  path: '/business-pages',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCompanyRoute = AdminCompanyRouteImport.update({
+  id: '/company',
+  path: '/company',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminStyleGuideRoute = AdminStyleGuideRouteImport.update({
+  id: '/style-guide',
+  path: '/style-guide',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminItemsIndexRoute = AdminItemsIndexRouteImport.update({
+  id: '/items/',
+  path: '/items/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminItemsIdRoute = AdminItemsIdRouteImport.update({
+  id: '/items/$id',
+  path: '/items/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminItemsNewRoute = AdminItemsNewRouteImport.update({
+  id: '/items/new',
+  path: '/items/new',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminRequestsIndexRoute = AdminRequestsIndexRouteImport.update({
+  id: '/requests/',
+  path: '/requests/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminRequestsIdRoute = AdminRequestsIdRouteImport.update({
+  id: '/requests/$id',
+  path: '/requests/$id',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/agribusiness': typeof AgribusinessRoute
   '/automobile-dealership': typeof AutomobileDealershipRoute
   '/car-hire': typeof CarHireRoute
@@ -75,6 +142,16 @@ export interface FileRoutesByFullPath {
   '/mechanical-scraps': typeof MechanicalScrapsRoute
   '/privacy': typeof PrivacyRoute
   '/security-consulting': typeof SecurityConsultingRoute
+  '/admin/business-pages': typeof AdminBusinessPagesRoute
+  '/admin/company': typeof AdminCompanyRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/style-guide': typeof AdminStyleGuideRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/items/$id': typeof AdminItemsIdRoute
+  '/admin/items/new': typeof AdminItemsNewRoute
+  '/admin/requests/$id': typeof AdminRequestsIdRoute
+  '/admin/items/': typeof AdminItemsIndexRoute
+  '/admin/requests/': typeof AdminRequestsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,11 +163,22 @@ export interface FileRoutesByTo {
   '/mechanical-scraps': typeof MechanicalScrapsRoute
   '/privacy': typeof PrivacyRoute
   '/security-consulting': typeof SecurityConsultingRoute
+  '/admin/business-pages': typeof AdminBusinessPagesRoute
+  '/admin/company': typeof AdminCompanyRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/style-guide': typeof AdminStyleGuideRoute
+  '/admin': typeof AdminIndexRoute
+  '/admin/items/$id': typeof AdminItemsIdRoute
+  '/admin/items/new': typeof AdminItemsNewRoute
+  '/admin/requests/$id': typeof AdminRequestsIdRoute
+  '/admin/items': typeof AdminItemsIndexRoute
+  '/admin/requests': typeof AdminRequestsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
   '/agribusiness': typeof AgribusinessRoute
   '/automobile-dealership': typeof AutomobileDealershipRoute
   '/car-hire': typeof CarHireRoute
@@ -98,12 +186,23 @@ export interface FileRoutesById {
   '/mechanical-scraps': typeof MechanicalScrapsRoute
   '/privacy': typeof PrivacyRoute
   '/security-consulting': typeof SecurityConsultingRoute
+  '/admin/business-pages': typeof AdminBusinessPagesRoute
+  '/admin/company': typeof AdminCompanyRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/style-guide': typeof AdminStyleGuideRoute
+  '/admin/': typeof AdminIndexRoute
+  '/admin/items/$id': typeof AdminItemsIdRoute
+  '/admin/items/new': typeof AdminItemsNewRoute
+  '/admin/requests/$id': typeof AdminRequestsIdRoute
+  '/admin/items/': typeof AdminItemsIndexRoute
+  '/admin/requests/': typeof AdminRequestsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
     | '/agribusiness'
     | '/automobile-dealership'
     | '/car-hire'
@@ -111,6 +210,16 @@ export interface FileRouteTypes {
     | '/mechanical-scraps'
     | '/privacy'
     | '/security-consulting'
+    | '/admin/business-pages'
+    | '/admin/company'
+    | '/admin/login'
+    | '/admin/style-guide'
+    | '/admin/'
+    | '/admin/items/$id'
+    | '/admin/items/new'
+    | '/admin/requests/$id'
+    | '/admin/items/'
+    | '/admin/requests/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,10 +231,21 @@ export interface FileRouteTypes {
     | '/mechanical-scraps'
     | '/privacy'
     | '/security-consulting'
+    | '/admin/business-pages'
+    | '/admin/company'
+    | '/admin/login'
+    | '/admin/style-guide'
+    | '/admin'
+    | '/admin/items/$id'
+    | '/admin/items/new'
+    | '/admin/requests/$id'
+    | '/admin/items'
+    | '/admin/requests'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
     | '/agribusiness'
     | '/automobile-dealership'
     | '/car-hire'
@@ -133,11 +253,22 @@ export interface FileRouteTypes {
     | '/mechanical-scraps'
     | '/privacy'
     | '/security-consulting'
+    | '/admin/business-pages'
+    | '/admin/company'
+    | '/admin/login'
+    | '/admin/style-guide'
+    | '/admin/'
+    | '/admin/items/$id'
+    | '/admin/items/new'
+    | '/admin/requests/$id'
+    | '/admin/items/'
+    | '/admin/requests/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
   AgribusinessRoute: typeof AgribusinessRoute
   AutomobileDealershipRoute: typeof AutomobileDealershipRoute
   CarHireRoute: typeof CarHireRoute
@@ -161,6 +292,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/agribusiness': {
@@ -212,12 +350,111 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SecurityConsultingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/business-pages': {
+      id: '/admin/business-pages'
+      path: '/business-pages'
+      fullPath: '/admin/business-pages'
+      preLoaderRoute: typeof AdminBusinessPagesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/company': {
+      id: '/admin/company'
+      path: '/company'
+      fullPath: '/admin/company'
+      preLoaderRoute: typeof AdminCompanyRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/style-guide': {
+      id: '/admin/style-guide'
+      path: '/style-guide'
+      fullPath: '/admin/style-guide'
+      preLoaderRoute: typeof AdminStyleGuideRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/items/': {
+      id: '/admin/items/'
+      path: '/items'
+      fullPath: '/admin/items/'
+      preLoaderRoute: typeof AdminItemsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/items/$id': {
+      id: '/admin/items/$id'
+      path: '/items/$id'
+      fullPath: '/admin/items/$id'
+      preLoaderRoute: typeof AdminItemsIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/items/new': {
+      id: '/admin/items/new'
+      path: '/items/new'
+      fullPath: '/admin/items/new'
+      preLoaderRoute: typeof AdminItemsNewRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/requests/': {
+      id: '/admin/requests/'
+      path: '/requests'
+      fullPath: '/admin/requests/'
+      preLoaderRoute: typeof AdminRequestsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/requests/$id': {
+      id: '/admin/requests/$id'
+      path: '/requests/$id'
+      fullPath: '/admin/requests/$id'
+      preLoaderRoute: typeof AdminRequestsIdRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
+
+interface AdminRouteChildren {
+  AdminBusinessPagesRoute: typeof AdminBusinessPagesRoute
+  AdminCompanyRoute: typeof AdminCompanyRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminStyleGuideRoute: typeof AdminStyleGuideRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminItemsIdRoute: typeof AdminItemsIdRoute
+  AdminItemsNewRoute: typeof AdminItemsNewRoute
+  AdminRequestsIdRoute: typeof AdminRequestsIdRoute
+  AdminItemsIndexRoute: typeof AdminItemsIndexRoute
+  AdminRequestsIndexRoute: typeof AdminRequestsIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminBusinessPagesRoute: AdminBusinessPagesRoute,
+  AdminCompanyRoute: AdminCompanyRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminStyleGuideRoute: AdminStyleGuideRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminItemsIdRoute: AdminItemsIdRoute,
+  AdminItemsNewRoute: AdminItemsNewRoute,
+  AdminRequestsIdRoute: AdminRequestsIdRoute,
+  AdminItemsIndexRoute: AdminItemsIndexRoute,
+  AdminRequestsIndexRoute: AdminRequestsIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
   AgribusinessRoute: AgribusinessRoute,
   AutomobileDealershipRoute: AutomobileDealershipRoute,
   CarHireRoute: CarHireRoute,

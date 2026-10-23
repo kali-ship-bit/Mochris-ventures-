@@ -5,6 +5,7 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  useLocation,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
@@ -130,6 +131,14 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
+  // Admin pages carry their own layout (header, bottom navigation), so the
+  // public site chrome is not rendered around them.
+  const admin = useLocation({
+    select: (location) => location.pathname === "/admin" || location.pathname.startsWith("/admin/"),
+  });
+
+  if (admin) return <Outlet />;
+
   return (
     <>
       <a

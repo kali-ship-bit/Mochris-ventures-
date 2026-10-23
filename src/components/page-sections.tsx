@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, CheckCircle2, Phone } from "lucide-react";
+import { ArrowRight, CheckCircle2, ImagePlus, Phone } from "lucide-react";
 
 import { company, type Business } from "@/lib/site-content";
 import { Button } from "@/components/ui/button";
@@ -78,6 +78,57 @@ export function SectionHeading({
   );
 }
 
+export function BusinessGallery({ business }: { business: Business }) {
+  return (
+    <section className="section-pad bg-background">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <SectionHeading
+          eyebrow="Gallery"
+          title={`${business.name} in pictures`}
+          description="A look at the work. Empty spaces are kept for new pictures, which are added as they become available."
+        />
+        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {business.gallery.map((photo, index) =>
+            photo.src ? (
+              <figure
+                key={photo.caption}
+                className={
+                  index === 0
+                    ? "relative overflow-hidden bg-card shadow-sm sm:col-span-2"
+                    : "relative overflow-hidden bg-card shadow-sm"
+                }
+              >
+                <img
+                  src={photo.src}
+                  alt={photo.caption}
+                  loading="lazy"
+                  className="aspect-[4/3] h-full w-full object-cover"
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-5 pb-4 pt-10 text-sm font-medium text-white">
+                  {photo.caption}
+                </figcaption>
+              </figure>
+            ) : (
+              <div
+                key={photo.caption}
+                className="flex aspect-[4/3] flex-col items-center justify-center gap-3 border-2 border-dashed border-border bg-secondary/60 px-6 text-center"
+              >
+                <ImagePlus className="size-8 text-muted-foreground" aria-hidden="true" />
+                <p className="font-display text-base font-semibold text-foreground">
+                  {photo.caption}
+                </p>
+                <p className="text-xs uppercase tracking-widest text-muted-foreground">
+                  Photo coming soon
+                </p>
+              </div>
+            ),
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function BusinessPage({ business }: { business: Business }) {
   return (
     <>
@@ -110,6 +161,7 @@ export function BusinessPage({ business }: { business: Business }) {
           </div>
         </div>
       </section>
+      <BusinessGallery business={business} />
       <section className="section-pad bg-secondary">
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 lg:grid-cols-2 lg:px-8">
           <div>
@@ -133,7 +185,8 @@ export function BusinessPage({ business }: { business: Business }) {
           <div className="bg-primary p-8 text-primary-foreground sm:p-10">
             <p className="eyebrow text-accent">Enquire now</p>
             <h2 className="mt-4 font-display text-3xl font-semibold">
-              Start a {business.shortName.toLowerCase()} conversation.
+              Start {/^[aeiou]/i.test(business.shortName) ? "an" : "a"}{" "}
+              {business.shortName.toLowerCase()} conversation.
             </h2>
             <p className="mt-4 leading-7 text-primary-foreground/70">
               Send an enquiry online or call us directly.

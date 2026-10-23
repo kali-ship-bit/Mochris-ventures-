@@ -24,6 +24,10 @@ export type Business = {
   description: string;
   intro: string;
   areas: { title: string; description: string }[];
+  // Picture gallery for the business page: up to six slots. A `null` src is an
+  // empty slot that renders as a "photo coming soon" placeholder until a real
+  // picture is added for that caption.
+  gallery: { src: string | null; caption: string }[];
 };
 
 export const businesses: Business[] = [
@@ -52,6 +56,14 @@ export const businesses: Business[] = [
         description: "Talk through your budget, timing and requirements with the team.",
       },
     ],
+    gallery: [
+      { src: vehiclesImage, caption: "Vehicles available now" },
+      { src: null, caption: "Showroom" },
+      { src: null, caption: "Latest arrivals" },
+      { src: null, caption: "Inside the vehicle" },
+      { src: null, caption: "Customer handover" },
+      { src: null, caption: "Service and inspection" },
+    ],
   },
   {
     name: "Agribusiness",
@@ -79,6 +91,14 @@ export const businesses: Business[] = [
         description: "Describe the quantities and timing you need.",
       },
     ],
+    gallery: [
+      { src: agricultureImage, caption: "On the farm" },
+      { src: null, caption: "Crops and produce" },
+      { src: null, caption: "Farm operations" },
+      { src: null, caption: "Harvest season" },
+      { src: null, caption: "Supply and delivery" },
+      { src: null, caption: "Our partners" },
+    ],
   },
   {
     name: "Mechanical Scraps",
@@ -101,6 +121,14 @@ export const businesses: Business[] = [
         description: "Ask about arrangements for collection or delivery.",
       },
       { title: "Business supply", description: "Discuss regular or project-based requirements." },
+    ],
+    gallery: [
+      { src: scrapsImage, caption: "Materials ready for supply" },
+      { src: null, caption: "Scrap collection" },
+      { src: null, caption: "Sorting and grading" },
+      { src: null, caption: "Loading and delivery" },
+      { src: null, caption: "Industrial materials" },
+      { src: null, caption: "Site operations" },
     ],
   },
   {
@@ -128,6 +156,14 @@ export const businesses: Business[] = [
         description: "Discuss the scope of the consulting support you need.",
       },
     ],
+    gallery: [
+      { src: securityImage, caption: "Consulting in session" },
+      { src: null, caption: "Risk assessment" },
+      { src: null, caption: "Planning session" },
+      { src: null, caption: "Site survey" },
+      { src: null, caption: "Control room review" },
+      { src: null, caption: "Team briefing" },
+    ],
   },
   {
     name: "Bus & Car Hire",
@@ -144,6 +180,14 @@ export const businesses: Business[] = [
       { title: "Saloon cars", description: "Comfortable cars for personal and business trips." },
       { title: "SUVs", description: "Roomy and comfortable for longer journeys." },
       { title: "Buses and vans", description: "Flexible space for groups and small teams." },
+    ],
+    gallery: [
+      { src: vehiclesImage, caption: "Cars ready for hire" },
+      { src: null, caption: "SUVs for hire" },
+      { src: null, caption: "Buses and vans" },
+      { src: null, caption: "Interior comfort" },
+      { src: null, caption: "Airport pickup" },
+      { src: null, caption: "Long-distance trips" },
     ],
   },
 ];

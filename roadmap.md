@@ -7,5 +7,5 @@
 - [x] Add route metadata and favicon
 - [ ] Replace generated photos with real company photos
 - [ ] Add the official company email address
-- [ ] Add a privacy policy page
+- [x] Add a privacy policy page
 - [ ] Add sitemap.xml and canonical links once the domain is set

@@ -13,7 +13,7 @@ bun run dev   # or: npm run dev
 
 ## Where to change things
 
-- Company details (phone, WhatsApp number, address, email): `src/lib/site-content.ts`, the `company` object.
+- Company details (phone, WhatsApp number, address, email): `src/lib/company.ts`.
 - Business names, descriptions and page copy: `src/lib/site-content.ts`.
 - Home, About and Contact page text: `src/routes/`.
 - Colors and fonts: `src/styles.css`.
@@ -22,4 +22,14 @@ bun run dev   # or: npm run dev
 
 ## Deploy
 
-Import the repository into Vercel. The framework is detected automatically.
+The site can be hosted on Vercel, Netlify, Cloudflare or another host that supports TanStack Start.
+The build target comes from the Lovable Vite config (Cloudflare by default), so always run a preview
+deployment on the chosen host and check it before going live.
+
+Security headers are included for each host: `vercel.json` for Vercel and `public/_headers` for
+Netlify and Cloudflare.
+
+## Environment variables
+
+Copy `.env.example` to `.env` for local work and set the same values in the host's settings.
+Never commit `.env`. See `SECURITY.md`.

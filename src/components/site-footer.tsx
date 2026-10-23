@@ -30,7 +30,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-primary-foreground/15">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-6 text-xs text-primary-foreground/55 sm:flex-row sm:items-center sm:justify-between lg:px-8">
-          <p>© {new Date().getFullYear()} {company.name}. All rights reserved.</p><p>Lagos, Nigeria</p>
+          <p>© {new Date().getFullYear()} {company.name}. All rights reserved.</p><div className="flex flex-wrap items-center gap-x-5 gap-y-1"><Link to="/privacy" className="underline-offset-4 transition-colors hover:text-accent hover:underline">Privacy Policy</Link><span>Lagos, Nigeria</span></div>
         </div>
       </div>
     </footer>

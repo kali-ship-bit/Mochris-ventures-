@@ -154,8 +154,11 @@ function ContactPage() {
     } else {
       // window.open returns null when the browser blocks the new tab. The
       // enquiry has not gone anywhere in that case, so the panel must say so
-      // instead of implying the message was sent.
-      const opened = window.open(link, "_blank", "noopener,noreferrer");
+      // instead of implying the message was sent. The "noopener" option cannot
+      // be used here because it makes window.open return null even when the
+      // tab opens, so the link back to this page is cut by hand instead.
+      const opened = window.open(link, "_blank");
+      if (opened) opened.opener = null;
       setOpenBlocked(opened === null);
     }
     setSent(true);

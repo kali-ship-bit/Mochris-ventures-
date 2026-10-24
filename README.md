@@ -33,3 +33,10 @@ Netlify and Cloudflare.
 
 Copy `.env.example` to `.env` for local work and set the same values in the host's settings.
 Never commit `.env`. See `SECURITY.md`.
+
+## Admin dashboard demo
+
+The screens under `/admin` are a front-end demo: the sign-in is not real and all data is sample
+data kept in the browser. They return the normal 404 page unless `VITE_ADMIN_DEMO=true` is set at
+build time, so they stay closed on the live site. Set that variable on a private preview only.
+Replace the demo with a real login and database before using it with real enquiries.
